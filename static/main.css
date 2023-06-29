@@ -1,0 +1,26 @@
+body{
+    margin:0;
+}
+header{
+    padding:20px;text-align: center;
+    background-color: skyblue;
+}
+table{
+    width:100%;
+}
+table th{
+    text-align: center;
+}
+table td.city{
+    text-align: center;
+}
+table{
+    background-color: aliceblue;
+}
+table tr:nth-child(odd){
+    background-color: gainsboro;
+}
+footer{
+    padding:20px;text-align: center;
+    background-color: beige;
+}

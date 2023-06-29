@@ -1,0 +1,27 @@
+{% extends 'mon.html' %}
+{% from 'bootstrap5/form.html' import render_form, render_field, render_form_row %}
+
+{% block title %}
+問卷
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='js/wiki.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+    <a href="#" class="d-flex align-items-center text-dark text-decoration-none">
+        <span class="fs-4 ms-4 mt-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2024近期總統民調</font></font></span>
+    </a>
+
+    <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <a class="me-4 mt-3 py-2 text-dark text-decoration-none" href="/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">本站民調</font></font></a>
+        <a class="me-4 mt-3 py-2 text-dark text-decoration-none" href="/result"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">本站民調結果</font></font></a>
+    </nav>
+</div>
+<div class="container">
+    <div id="wiki" style="overflow:auto;position: relative;">
+    </div>
+</div>
+
+{% endblock %}

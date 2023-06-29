@@ -1,0 +1,47 @@
+{% extends 'mon.html' %}
+{% from 'bootstrap5/form.html' import render_form, render_field, render_form_row %}
+
+{% block title %}
+問卷
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='js/result.js') }}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+    <a href="#" class="d-flex align-items-center text-dark text-decoration-none">
+        <span class="fs-4 ms-4 mt-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2024總統民調結果</font></font></span>
+    </a>
+
+    <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <a class="me-4 mt-3 py-2 text-dark text-decoration-none" href="/"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">本站民調</font></font></a>
+        <a class="me-4 mt-3 py-2 text-dark text-decoration-none" href="/wiki"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">近期民調</font></font></a>
+    </nav>
+</div>
+<div class="container">
+    <h4>年齡</h4>
+    <canvas chart="年齡"></canvas>
+    <h4>性別</h4>
+    <canvas chart="性別"></canvas>
+    <h4>縣市</h4>
+    <canvas chart="縣市"></canvas>
+    <h4>教育程度</h4>
+    <canvas chart="教育程度"></canvas>
+    <h4>觀看政見前</h4>
+    <canvas chart="觀看政見前"></canvas>
+    <div table="候選人評分1"></div>
+    <h4>觀看政見後</h4>
+    <canvas chart="觀看政見後"></canvas>
+    <div table="候選人評分2"></div>
+    <h4>主動查詢各候選人的政見</h4>
+    <canvas chart="主動查詢各候選人的政見"></canvas>
+    <h4>媒體識讀能力</h4>
+    <canvas chart="媒體識讀能力"></canvas>
+    <h4>查證新聞內容</h4>
+    <canvas chart="查證新聞內容"></canvas>
+    <h4>檢視各方看法並分析</h4>
+    <canvas chart="檢視各方看法並分析"></canvas>
+</div>
+
+{% endblock %}

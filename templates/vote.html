@@ -1,0 +1,125 @@
+{% extends 'mon.html' %}
+{% from 'bootstrap5/form.html' import render_form, render_field, render_form_row %}
+
+{% block title %}
+問卷
+{% endblock %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/jquery-twzipcode@1.7.14/jquery.twzipcode.min.js"></script>
+<script src="{{ url_for('static', filename='js/vote.js') }}"></script>
+
+<div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+    <a href="#" class="d-flex align-items-center text-dark text-decoration-none">
+        <span class="fs-4 ms-4 mt-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2024總統民調問卷</font></font></span>
+    </a>
+
+    <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <a class="me-4 mt-3 py-2 text-dark text-decoration-none" href="/result"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">本站民調結果</font></font></a>
+        <a class="me-4 mt-3 py-2 text-dark text-decoration-none" href="/wiki"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">近期民調</font></font></a>
+    </nav>
+</div>
+<div class="container">
+    {% if msg != null %}
+    <div class="alert alert-danger" role="alert">
+        {{msg}}
+    </div>
+    {% endif %}
+    <form method="POST" action="/">
+        {{ form.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-4">
+            {{ render_field(form.id_number) }}
+            </div>
+            <div class="col-md-4">
+            {{ render_field(form.birthday) }}
+            </div>
+            <div class="col-md-4">
+            {{ render_field(form.gender) }}
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div>居住縣市：</div>
+            <div id="tzc" class="required" county="{{ form.data.get('county') }}" district="{{ form.data.get('district') }}">
+                <input type="hidden" data-role="zipcode" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+            {{ render_field(form.education) }}
+            </div>
+            <div class="col-md-4">
+            {{ render_field(form.party1) }}
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-4">
+                {{ render_field(form.monthly_income,placeholder="ex:26000") }}
+                </div>
+                <div class="col-md-4">
+                {{ render_field(form.annual_income,placeholder="ex:338000") }}
+                </div>
+            </div>
+        </div>
+        
+        以下總統候選人您給幾分5(好)~1(不好)
+        <div class="row mb-3">
+            {% for i in range(form.preference1|length) %}
+            <div class="col-md-4">
+                <div>{{ form.candidates[i] }}</div>
+                <div class="row justify-content-center">
+                {% for preference_choice in form.preference1[i] %}
+                    <div class="col">{{ preference_choice }} {{ preference_choice.label }}</div>
+                {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {{ render_field(form.reason1) }}
+        
+        <div>
+            這些是根據「[候選人] 總統宣言」關鍵字搜尋找出的相關影片<br>
+            內容包含各候選人對於其理想上的相關論述<br>
+            有觀看過該總統候選人的相關影片就勾選該候選人<br>
+            （沒看過的話，可以現在補看完後勾）<br>
+            <br>
+            建議看過影片時，順便看一下影片下熱門留言跟你看完後的感想大致是否相符<br>
+
+            <div>柯文哲 <a href="https://youtu.be/8zes2Zw5IDE" target="_blank">影片1</a> <a href="https://youtu.be/QiFIhNqtzvA" target="_blank">影片2</a> <a href="https://youtu.be/u15xbE5xNiA" target="_blank">影片3</a></div>
+            <div>侯友宜 <a href="https://youtu.be/mMktxKspdsI" target="_blank">影片1</a> <a href="https://youtu.be/FIkFZLdHpKo" target="_blank">影片2</a> <a href="https://youtu.be/UlWXdvwFPzg" target="_blank">影片3</a></div>
+            <div>賴清德 <a href="https://youtu.be/0NOu4KDyQZU" target="_blank">影片1</a> <a href="https://youtu.be/JwOhLitZ-iY" target="_blank">影片2</a> <a href="https://youtube.com/shorts/SV74qep86fo" target="_blank">影片3</a></div>
+            <br>
+            是否看過候選人的相關影片:
+            {{ render_field(form.video1) }}
+            {{ render_field(form.video2) }}
+            {{ render_field(form.video3) }}
+        </div>
+            {{ render_field(form.party2) }}
+        看完後，以下總統候選人您給幾分1(不好)~5(好)
+        <div class="row mb-3">
+            {% for i in range(form.preference2|length) %}
+            <div class="col-md-4">
+                <div>{{ form.candidates[i] }}</div>
+                <div class="row justify-content-center">
+                {% for preference_choice in form.preference2[i] %}
+                    <div class="col">{{ preference_choice }} {{ preference_choice.label }}</div>
+                {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {{ render_field(form.reason2) }}
+
+        <div class="row">
+            <div class="row">{{ render_field(form.watch) }}</div>
+            <div class="row">{{ render_field(form.media_literacy) }}</div>
+            <div class="row">{{ render_field(form.fact_checking) }}</div>
+            <div class="row">{{ render_field(form.perspective_taking) }}</div>
+        </div>
+        
+        {{ render_field(form.other_comments) }}
+        {{ form.submit(class='btn btn-primary') }}
+    </form>
+</div>
+
+{% endblock %}

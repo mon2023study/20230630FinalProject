@@ -1,0 +1,22 @@
+{% from 'bootstrap5/nav.html' import render_nav_item %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>2024vote</title>
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        {{ bootstrap.load_css() }}
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        {{ bootstrap.load_js() }}
+        {% block content %}{% endblock %}
+    </body>
+    <footer class="text-center">
+        {% block footer %}
+            <small> &copy; 2024 vote</small>
+        {% endblock %}
+    </footer>
+</html>
