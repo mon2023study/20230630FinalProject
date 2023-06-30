@@ -220,6 +220,7 @@ def api_result():
         '性別':{'男':0,'女':0},
         '縣市':{},
         '教育程度':{'國小以下': 0,'國中': 0, '高中/職': 0, '大專院校': 0, '碩士': 0, '博士': 0},
+        '觀看政見':{'柯文哲':0,'侯友宜':0,'賴清德':0},
         '觀看政見前':{'民眾黨': 0, '國民黨': 0, '民進黨': 0, '其他': 0},
         '觀看政見後':{'民眾黨': 0, '國民黨': 0, '民進黨': 0, '其他': 0},
         '主動查詢各候選人的政見':{},
@@ -230,6 +231,7 @@ def api_result():
         '候選人評分2':{'柯文哲':{'1':0,'2':0,'3':0,'4':0,'5':0},'侯友宜':{'1':0,'2':0,'3':0,'4':0,'5':0},'賴清德':{'1':0,'2':0,'3':0,'4':0,'5':0}}
     }
 
+    tfts = {'True':'有','False':'無'}
     today = datetime.date.today()
     for data in qf:
         group_dict['年齡'][calculate_age_group(calculate_age(today,data.birthday))] += 1
@@ -238,24 +240,32 @@ def api_result():
             group_dict['縣市'][data.county] = 0
         group_dict['縣市'][data.county] += 1
         group_dict['教育程度'][data.education] += 1
+    
+        if data.video1:
+            group_dict['觀看政見']['柯文哲'] += 1
+        if data.video2:
+            group_dict['觀看政見']['侯友宜'] += 1
+        if data.video3:
+            group_dict['觀看政見']['賴清德'] += 1
+        
         group_dict['觀看政見前'][data.party1] += 1
         group_dict['觀看政見後'][data.party2] += 1
         
         if data.watch not in group_dict['主動查詢各候選人的政見']:
-            group_dict['主動查詢各候選人的政見'][data.watch] = 0
-        group_dict['主動查詢各候選人的政見'][data.watch] += 1
+            group_dict['主動查詢各候選人的政見'][tfts[data.watch]] = 0
+        group_dict['主動查詢各候選人的政見'][tfts[data.watch]] += 1
 
         if data.media_literacy not in group_dict['媒體識讀能力']:
-            group_dict['媒體識讀能力'][data.media_literacy] = 0
-        group_dict['媒體識讀能力'][data.media_literacy] += 1
+            group_dict['媒體識讀能力'][tfts[data.media_literacy]] = 0
+        group_dict['媒體識讀能力'][tfts[data.media_literacy]] += 1
 
         if data.fact_checking not in group_dict['查證新聞內容']:
-            group_dict['查證新聞內容'][data.fact_checking] = 0
-        group_dict['查證新聞內容'][data.fact_checking] += 1
+            group_dict['查證新聞內容'][tfts[data.fact_checking]] = 0
+        group_dict['查證新聞內容'][tfts[data.fact_checking]] += 1
 
         if data.perspective_taking not in group_dict['檢視各方看法並分析']:
-            group_dict['檢視各方看法並分析'][data.perspective_taking] = 0
-        group_dict['檢視各方看法並分析'][data.perspective_taking] += 1
+            group_dict['檢視各方看法並分析'][tfts[data.perspective_taking]] = 0
+        group_dict['檢視各方看法並分析'][tfts[data.perspective_taking]] += 1
 
         preference1 = data.preference1.split(',')
         group_dict['候選人評分1']['柯文哲'][preference1[0]] += 1
