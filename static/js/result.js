@@ -46,7 +46,7 @@ $(function(){
                 html = '';
                 for(tstk in datas[tes[tk]]){
                     tstv = datas[tes[tk]][tstk];
-                    html+='<td>'+tstv[1]+'</td><td>'+tstv[2]+'</td><td>'+tstv[3]+'</td><td>'+tstv[4]+'</td><td>'+tstv[5]+'</td>';
+                    html+='<td>'+tstv[5]+'</td><td>'+tstv[4]+'</td><td>'+tstv[3]+'</td><td>'+tstv[2]+'</td><td>'+tstv[1]+'</td>';
                 }
                 $('[table="'+tes[tk]+'"]').html('<table class="table table-striped table-bordered table-hover text-center"><tr><th colspan="5">柯文哲</th><th colspan="5">侯友宜</th><th colspan="5">賴清德</th></tr><tr><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td><td>5</td><td>4</td><td>3</td><td>2</td><td>1</td></tr><tr>'+html+'</tr></table>')
             }
